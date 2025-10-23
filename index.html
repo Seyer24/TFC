@@ -2,84 +2,180 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Personal Data Blog</title>
+    <title>TFC - Registration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 2em;
+            margin: 0;
             background: #f0f4f8;
         }
-        .container {
+        .phone-outline {
             background: #fff;
-            padding: 2em;
-            border-radius: 8px;
             max-width: 400px;
-            margin: auto;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin: 40px auto 0 auto;
+            border-radius: 40px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+            border: 6px solid #222;
+            padding: 32px 20px 16px 20px;
+            position: relative;
+        }
+        .phone-outline:before {
+            content: "";
+            position: absolute;
+            top: -12px; left: -12px; right: -12px; bottom: -12px;
+            border: 3px solid #222;
+            border-radius: 44px;
+            pointer-events: none;
         }
         h1 {
             text-align: center;
+            margin-bottom: 32px;
+            font-size: 2.2em;
+            letter-spacing: 2px;
+            font-weight: bold;
         }
-        label {
-            display: block;
-            margin-top: 1em;
+        .grid-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            gap: 16px;
         }
-        input, textarea {
+        .square {
+            background: #f7fafd;
+            border: 2px solid #222;
+            border-radius: 16px;
+            flex: 1 1 0;
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+        .square label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.04em;
+        }
+        .square input, .square textarea {
             width: 100%;
-            padding: 0.6em;
-            margin-top: 0.2em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 1em;
+            background: #fff;
+            margin-bottom: 0;
+            resize: none;
+        }
+        .rect-row {
+            margin-bottom: 20px;
+        }
+        .rect {
+            width: 100%;
+            background: #f7fafd;
+            border: 2px solid #222;
+            border-radius: 16px;
+            min-height: 64px;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 12px 14px;
+            box-sizing: border-box;
+        }
+        .rect label {
+            font-weight: bold;
+            font-size: 1.04em;
+            margin-bottom: 8px;
+        }
+        .rect input, .rect textarea {
+            width: 100%;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 1em;
+            margin-bottom: 0;
+            background: #fff;
+            resize: none;
         }
         button {
-            margin-top: 1.5em;
-            padding: 0.7em 2em;
+            width: 100%;
+            margin: 18px 0 8px 0;
+            padding: 10px 0;
             background: #3498db;
             color: #fff;
             border: none;
-            border-radius: 4px;
-            font-size: 1em;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: bold;
             cursor: pointer;
         }
         .result {
-            margin-top: 2em;
-            padding: 1em;
+            margin-top: 20px;
+            padding: 14px;
             background: #eaf6fb;
-            border-radius: 4px;
+            border-radius: 8px;
+            border: 1px solid #bce0f6;
             display: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #555;
+            font-size: 0.97em;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="phone-outline">
         <h1>TFC</h1>
-        <form id="dataForm" autocomplete="off">
-            <label for="name">Enrolled to:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="email">Family Members:</label>
-            <input type="email" id="email" name="email">
-
-            <label for="bio">History of Services:</label>
-            <input id="bio" name="bio" rows="3"></input>
-
-            <button type="submit">Show My Data</button>
+        <form id="tfcForm" autocomplete="off">
+            <div class="grid-row">
+                <div class="square">
+                    <label for="enrolledTo">Enrolled to:</label>
+                    <input type="text" id="enrolledTo" name="enrolledTo" required>
+                </div>
+                <div class="square">
+                    <label for="familyMembers">Family Members:</label>
+                    <input type="text" id="familyMembers" name="familyMembers" required>
+                </div>
+            </div>
+            <div class="rect-row">
+                <div class="rect">
+                    <label for="history">History of services</label>
+                    <textarea id="history" name="history" rows="2" required></textarea>
+                </div>
+            </div>
+            <div class="rect-row">
+                <div class="rect">
+                    <label for="nextService">Next service due to</label>
+                    <textarea id="nextService" name="nextService" rows="1" required></textarea>
+                </div>
+            </div>
+            <button type="submit">Show Data</button>
         </form>
         <div class="result" id="result"></div>
+        <div class="footer">
+            Made by Angel Garcia, Karim Chalita and Emiliano Flores.
+        </div>
     </div>
     <script>
-        const form = document.getElementById('dataForm');
+        const form = document.getElementById('tfcForm');
         const resultDiv = document.getElementById('result');
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            // Just display the entered data, don't save anywhere
-            const name = form.name.value;
-            const email = form.email.value;
-            const bio = form.bio.value;
+            // Get all values as text
+            const enrolledTo = form.enrolledTo.value;
+            const familyMembers = form.familyMembers.value;
+            const history = form.history.value;
+            const nextService = form.nextService.value;
             resultDiv.innerHTML = `<h2>Your Data</h2>
-                <strong>Name:</strong> ${name}<br>
-                <strong>Email:</strong> ${email}<br>
-                <strong>Bio:</strong> ${bio}`;
+                <strong>Enrolled to:</strong> ${enrolledTo}<br>
+                <strong>Family Members:</strong> ${familyMembers}<br>
+                <strong>History of services:</strong> ${history}<br>
+                <strong>Next service due to:</strong> ${nextService}`;
             resultDiv.style.display = 'block';
             form.reset();
         });
