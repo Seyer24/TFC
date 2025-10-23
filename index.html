@@ -68,16 +68,18 @@
             margin-bottom: 0;
             resize: none;
         }
+        /* MODIFICADO: Los rectángulos ahora son flex y tienen gap como los de arriba */
         .rect-row {
+            display: flex;
+            gap: 16px;
             margin-bottom: 20px;
         }
         .rect {
-            width: 100%;
             background: #f7fafd;
             border: 2px solid #222;
             border-radius: 16px;
+            flex: 1 1 0;
             min-height: 64px;
-            margin-bottom: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -147,8 +149,6 @@
                     <label for="history">History of services</label>
                     <textarea id="history" name="history" rows="2" required></textarea>
                 </div>
-            </div>
-            <div class="rect-row">
                 <div class="rect">
                     <label for="nextService">Next service due to</label>
                     <textarea id="nextService" name="nextService" rows="1" required></textarea>
